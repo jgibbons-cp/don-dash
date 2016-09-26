@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER Ash Wilson
 
-#This is a change
+# is a change
 #########
 # Install Python, pip, Flask, and the CloudPassage SDK
 #########
