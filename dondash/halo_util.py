@@ -10,11 +10,32 @@ class SecurityReporter(object):
                                                      self.halo_creds.secret_key)
         return
 
+    def getHaloPolicyBody(fqpOfDataFile):
+        jsonData = None
+
+        try:
+            with open(dataFile) as jDataFile:
+                jsonData = json.load(jDataFile)
+        except IOError as err:
+            error_message = "Unable to load user server ID data from file: %s" % err
+            print error_message
+            sys.exit(-1)
+
+        return jsonData
+
     def scan_all_modules(self, agent_id):
+        fimPolicyName = "CoreSystemFilesUbuntu_v2.1-FIM.json"
+        fimPolicyLocation = "/tmp"
+        fqpToPolicyFile = "%s/%s" % (fimPolicyLocation, fimPolicyName)
         scan_types = ["csm", "svm", "fim"]
         command_ids = []
         unfinished_statuses = ['queued', 'pending']
         server_module = cloudpassage.Server(self.halo_session)
+        cpFIM_Object = cloudpassage.FimPolicy(self.halo_session)
+        cpFIM_PolicyBody = getHaloPolicyBody(fqpToPolicyFile)
+        cpFIM_PolicyID = cpFIM_Object.create(cpFIM_PolicyBody)
+        cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
+        cpFIM_BaselineID = cpFIM_BaselineObject.create(cpFIM_PolicyID, agent_id)
         scan_module = cloudpassage.Scan(self.halo_session)
         raw_scan_results = []
         # Initiate scans
