@@ -24,11 +24,11 @@ class SecurityReporter(object):
         return jsonData
 
     def scan_all_modules(self, agent_id):
-        fimPolicyName = "CoreSystemFilesUbuntu_v2.1-FIM.json"
-        fimPolicyLocation = "/tmp"
-        fqpToPolicyFile = "%s/%s" % (fimPolicyLocation, fimPolicyName)
+        #fimPolicyName = "CoreSystemFilesUbuntu_v2.1-FIM.json"
+        #fimPolicyLocation = "/tmp"
+        #fqpToPolicyFile = "%s/%s" % (fimPolicyLocation, fimPolicyName)
         #scan_types = ["csm", "svm", "fim"]
-        scan_types = ["csm", "svm", "fim"]
+        scan_types = ["csm", "svm"]
         command_ids = []
         unfinished_statuses = ['queued', 'pending']
         server_module = cloudpassage.Server(self.halo_session)
