@@ -27,18 +27,21 @@ class SecurityReporter(object):
         fimPolicyName = "CoreSystemFilesUbuntu_v2.1-FIM.json"
         fimPolicyLocation = "/tmp"
         fqpToPolicyFile = "%s/%s" % (fimPolicyLocation, fimPolicyName)
+        #scan_types = ["csm", "svm", "fim"]
         scan_types = ["csm", "svm", "fim"]
         command_ids = []
         unfinished_statuses = ['queued', 'pending']
         server_module = cloudpassage.Server(self.halo_session)
-        cpFIM_Object = cloudpassage.FimPolicy(self.halo_session)
-        cpFIM_PolicyBody = self.getHaloPolicyBody(fqpToPolicyFile)
-        print "This is policy body %s" % cpFIM_PolicyBody
-        cpFIM_PolicyID = cpFIM_Object.create(cpFIM_PolicyBody)
-        print "This is FIM policy ID %s" % cpFIM_PolicyID
-        cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
-        cpFIM_BaselineID = cpFIM_BaselineObject.create(cpFIM_PolicyID, agent_id)
-        print "this is baseline id %s" % cpFIM_BaselineID
+        
+        #cpFIM_Object = cloudpassage.FimPolicy(self.halo_session)
+        #cpFIM_PolicyBody = self.getHaloPolicyBody(fqpToPolicyFile)
+        #print "This is policy body %s" % cpFIM_PolicyBody
+        #cpFIM_PolicyID = cpFIM_Object.create(cpFIM_PolicyBody)
+        #print "This is FIM policy ID %s" % cpFIM_PolicyID
+        #cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
+        #cpFIM_BaselineID = cpFIM_BaselineObject.create(cpFIM_PolicyID, agent_id)
+        #print "this is baseline id %s" % cpFIM_BaselineID
+        
         scan_module = cloudpassage.Scan(self.halo_session)
         raw_scan_results = []
         # Initiate scans
