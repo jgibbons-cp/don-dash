@@ -11,7 +11,7 @@ class SecurityReporter(object):
         return
 
     def scan_all_modules(self, agent_id):
-        scan_types = ["csm", "svm"]
+        scan_types = ["csm", "svm", "fim"]
         command_ids = []
         unfinished_statuses = ['queued', 'pending']
         server_module = cloudpassage.Server(self.halo_session)
