@@ -14,7 +14,7 @@ class SecurityReporter(object):
         jsonData = None
 
         try:
-            with open(dataFile) as jDataFile:
+            with open(fqpOfDataFile) as jDataFile:
                 jsonData = json.load(jDataFile)
         except IOError as err:
             error_message = "Unable to load user server ID data from file: %s" % err
