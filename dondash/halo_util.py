@@ -1,9 +1,7 @@
 import cloudpassage
 import pprint
 import time
-import sys
-import os
-
+import json
 
 class SecurityReporter(object):
     def __init__(self):
