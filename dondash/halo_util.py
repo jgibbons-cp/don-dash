@@ -32,7 +32,7 @@ class SecurityReporter(object):
         unfinished_statuses = ['queued', 'pending']
         server_module = cloudpassage.Server(self.halo_session)
         cpFIM_Object = cloudpassage.FimPolicy(self.halo_session)
-        cpFIM_PolicyBody = self.getHaloPolicyBody(fqpToPolicyFile)
+        cpFIM_PolicyBody = self.getHaloPolicyBody(self, fqpToPolicyFile)
         cpFIM_PolicyID = cpFIM_Object.create(cpFIM_PolicyBody)
         cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
         cpFIM_BaselineID = cpFIM_BaselineObject.create(cpFIM_PolicyID, agent_id)
