@@ -2,7 +2,7 @@ import cloudpassage
 import pprint
 import time
 import sys
-import subprocess
+import os
 
 
 class SecurityReporter(object):
@@ -34,7 +34,7 @@ class SecurityReporter(object):
         unfinished_statuses = ['queued', 'pending']
         server_module = cloudpassage.Server(self.halo_session)
         cpFIM_Object = cloudpassage.FimPolicy(self.halo_session)
-        subprocess.call("ls", "/tmp")
+        os.listdir("/tmp")
         cpFIM_PolicyBody = self.getHaloPolicyBody(fqpToPolicyFile)
         print "This is policy body %s" % cpFIM_PolicyBody
         cpFIM_PolicyID = cpFIM_Object.create(cpFIM_PolicyBody)
