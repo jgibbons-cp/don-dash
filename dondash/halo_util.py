@@ -1,6 +1,7 @@
 import cloudpassage
 import pprint
 import time
+import sys
 
 
 class SecurityReporter(object):
