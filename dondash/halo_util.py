@@ -33,7 +33,7 @@ class SecurityReporter(object):
         command_ids = []
         unfinished_statuses = ['queued', 'pending']
         server_module = cloudpassage.Server(self.halo_session)
-        
+
         #cpFIM_Object = cloudpassage.FimPolicy(self.halo_session)
         #cpFIM_PolicyBody = self.getHaloPolicyBody(fqpToPolicyFile)
         #print "This is policy body %s" % cpFIM_PolicyBody
@@ -42,7 +42,7 @@ class SecurityReporter(object):
         #cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
         #cpFIM_BaselineID = cpFIM_BaselineObject.create(cpFIM_PolicyID, agent_id)
         #print "this is baseline id %s" % cpFIM_BaselineID
-        
+
         scan_module = cloudpassage.Scan(self.halo_session)
         raw_scan_results = []
         # Initiate scans
@@ -65,6 +65,7 @@ class SecurityReporter(object):
         for scan_type in scan_types:
             try:
                 results = scan_module.last_scan_results(agent_id, scan_type)
+                print results["id"]
             except CloudPassageValidation as e:
                 message = "Error encountered: %s" % str(e)
                 result = {"result": message}
@@ -75,7 +76,7 @@ class SecurityReporter(object):
 
     def print_pretty_scans(self, raw_scan_results):
         pp = pprint.PrettyPrinter()
-        pp.pprint(raw_scan_results)
+        #pp.pprint(raw_scan_results)
         ##print raw_scan_results
         #with open("testFile", 'w') as fout:
         #    pp = pprint.PrettyPrinter(stream=fout)
