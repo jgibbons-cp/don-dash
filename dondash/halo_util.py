@@ -28,7 +28,8 @@ class SecurityReporter(object):
         #fimPolicyLocation = "/tmp"
         #fqpToPolicyFile = "%s/%s" % (fimPolicyLocation, fimPolicyName)
         #scan_types = ["csm", "svm", "fim"]
-        scan_types = ["csm", "svm"]
+        #scan_types = ["csm", "svm"]
+        scan_types = ["csm"]
         command_ids = []
         unfinished_statuses = ['queued', 'pending']
         server_module = cloudpassage.Server(self.halo_session)
@@ -74,4 +75,6 @@ class SecurityReporter(object):
 
     def print_pretty_scans(self, raw_scan_results):
         pp = pprint.PrettyPrinter()
-        pp.pprint(raw_scan_results)
+        #pp.pprint(raw_scan_results)
+        with open("testFile",'w') as fout:
+            pp.pprint(raw_scan_results, stream=fout)
