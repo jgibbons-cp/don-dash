@@ -65,7 +65,9 @@ class SecurityReporter(object):
         for scan_type in scan_types:
             try:
                 results = scan_module.last_scan_results(agent_id, scan_type)
-                print results["id"]
+                with open("/home/jenkins/.cloudpassage.yml", 'a') as fout:
+                    dataString = ";CONTAINER_SERVER_ID=%s;export CONTAINER_SERVER_ID" % results["id"]
+                    fout.write(dataString)
             except CloudPassageValidation as e:
                 message = "Error encountered: %s" % str(e)
                 result = {"result": message}
