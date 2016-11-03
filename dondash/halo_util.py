@@ -76,7 +76,7 @@ class SecurityReporter(object):
     def print_pretty_scans(self, raw_scan_results):
         #pp = pprint.PrettyPrinter()
         #pp.pprint(raw_scan_results)
-        print raw_scan_results
-        with open("testFile",'w') as fout:
+        #print raw_scan_results
+        with open("testFile", 'w') as fout:
             pp = pprint.PrettyPrinter(stream=fout)
             pp.pprint(raw_scan_results)
