@@ -3,6 +3,7 @@ import pprint
 import time
 import json
 import os
+import sys
 
 class SecurityReporter(object):
     def __init__(self):
