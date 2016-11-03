@@ -82,7 +82,8 @@ class SecurityReporter(object):
                 results = scan_module.last_scan_results(agent_id, scan_type)
                 #print "This is dir listing"
                 if os.path.isfile('/app/.cloudpassage.yml') is False:
-                 #   os.listdir("./")
+                    print "this is dir listing"
+                    os.listdir("./")
                     with open("/app/.cloudpassage.yml", 'a') as yDataFile:
                         fileKey = "FIM_Environment_Variables:"
                         yDataFile.write(fileKey)
