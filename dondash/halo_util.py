@@ -25,6 +25,19 @@ class SecurityReporter(object):
 
         return jsonData
 
+def getYamlData(fqpDataFile, fileKey):
+    yamlData = None
+
+    try:
+        with open(dataFile) as yDataFile:
+            yamlData = yaml.load(yDataFile)[fileKey]
+    except IOError as err:
+        error_message = "Unable to load user server ID data from file: %s" % err
+        print error_message
+        sys.exit(-1)
+
+    return yamlData
+
     def scan_all_modules(self, agent_id):
         #fimPolicyName = "CoreSystemFilesUbuntu_v2.1-FIM.json"
         #fimPolicyLocation = "/tmp"
@@ -71,11 +84,15 @@ class SecurityReporter(object):
                 if os.path.isfile('/app/.cloudpassage.yml') is False:
                     os.listdir("./")
                     with open("/app/.cloudpassage.yml", 'a') as yDataFile:
-                        dataString = "FIM_Environment_Variables:"
-                        yDataFile.write(dataString)
+                        fileKey = "FIM_Environment_Variables:"
+                        yDataFile.write(fileKey)
                         dataString = "  CONTAINER_SERVER_ID : %s" % results["id"]
                         yDataFile.write(dataString)
                         yDataFile.close()
+                else:
+                    fimData = getYamlData('/app/.cloudpassage.yml', fileKey)
+                    print "This is fim data"
+                    print fimData
             except cloudpassage.CloudPassageValidation as e:
                 message = "Error encountered: %s" % str(e)
                 result = {"result": message}
