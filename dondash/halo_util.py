@@ -89,10 +89,10 @@ def getYamlData(fqpDataFile, fileKey):
                         dataString = "  CONTAINER_SERVER_ID : %s" % results["id"]
                         yDataFile.write(dataString)
                         yDataFile.close()
-                else:
-                    fimData = getYamlData('/app/.cloudpassage.yml', fileKey)
-                    print "This is fim data"
-                    print fimData
+                #else:
+                #    fimData = getYamlData('/app/.cloudpassage.yml', fileKey)
+                #    print "This is fim data"
+                #    print fimData
             except cloudpassage.CloudPassageValidation as e:
                 message = "Error encountered: %s" % str(e)
                 result = {"result": message}
