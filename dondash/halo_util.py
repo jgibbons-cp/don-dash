@@ -61,7 +61,7 @@ class SecurityReporter(object):
                 if status not in unfinished_statuses:
                     command_ids.remove(command_id)
         # Get results
-        #print "Getting scan results"
+        # print "Getting scan results"
         for scan_type in scan_types:
             try:
                 results = scan_module.last_scan_results(agent_id, scan_type)
