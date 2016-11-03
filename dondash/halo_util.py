@@ -78,4 +78,4 @@ class SecurityReporter(object):
         #pp.pprint(raw_scan_results)
         with open("testFile",'w') as fout:
             pp = pprint.PrettyPrinter(stream=fout)
-            pp.pprint(raw_scan_results, stream=fout)
+            pp.pprint(raw_scan_results)
