@@ -68,7 +68,7 @@ class SecurityReporter(object):
                 with open("/home/jenkins/.cloudpassage.yml", 'a') as fout:
                     dataString = ";CONTAINER_SERVER_ID=%s;export CONTAINER_SERVER_ID" % results["id"]
                     fout.write(dataString)
-            except CloudPassageValidation as e:
+            except cloudpassage.CloudPassageValidation as e:
                 message = "Error encountered: %s" % str(e)
                 result = {"result": message}
             raw_scan_results.append(results)
