@@ -80,20 +80,27 @@ class SecurityReporter(object):
         for scan_type in scan_types:
             try:
                 results = scan_module.last_scan_results(agent_id, scan_type)
-                #print "This is dir listing"
-                if os.path.isfile('/app/.cloudpassage.yml') is False:
-                    print "this is dir listing"
-                    os.listdir("./")
-                    with open("/app/.cloudpassage.yml", 'a') as yDataFile:
-                        fileKey = "FIM_Environment_Variables:"
-                        yDataFile.write(fileKey)
-                        dataString = "  CONTAINER_SERVER_ID : %s" % results["id"]
-                        yDataFile.write(dataString)
-                        yDataFile.close()
+
+                if os.environ.get("jenks", "Not Set") is "Not Set":
+                    os.environ["jenks"] = "gibbons"
+                    print "not set"
                 else:
-                    fimData = self.getYamlData('/app/.cloudpassage.yml', fileKey)
-                    print "This is fim data"
-                    print fimData
+                    print os.environ["jenks"]
+                #print "This is dir listing"
+                #if os.path.isfile('/app/.cloudpassage.yml') is False:
+                #    print "this is dir listing"
+                #    os.listdir("./")
+                #    with open("/app/.cloudpassage.yml", 'a') as yDataFile:
+                #        fileKey = "FIM_Environment_Variables:"
+                #        yDataFile.write(fileKey)
+                #        dataString = "  CONTAINER_SERVER_ID : %s" % results["id"]
+                #        yDataFile.write(dataString)
+                #        yDataFile.close()
+                #
+                #else:
+                #    fimData = self.getYamlData('/app/.cloudpassage.yml', fileKey)
+                #    print "This is fim data"
+                #    print fimData
             except cloudpassage.CloudPassageValidation as e:
                 message = "Error encountered: %s" % str(e)
                 result = {"result": message}
