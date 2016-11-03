@@ -25,18 +25,18 @@ class SecurityReporter(object):
 
         return jsonData
 
-def getYamlData(fqpDataFile, fileKey):
-    yamlData = None
+    def getYamlData(self, fqpDataFile, fileKey):
+        yamlData = None
 
-    try:
-        with open(dataFile) as yDataFile:
-            yamlData = yaml.load(yDataFile)[fileKey]
-    except IOError as err:
-        error_message = "Unable to load user server ID data from file: %s" % err
-        print error_message
-        sys.exit(-1)
+        try:
+            with open(dataFile) as yDataFile:
+                yamlData = yaml.load(yDataFile)[fileKey]
+        except IOError as err:
+            error_message = "Unable to load user server ID data from file: %s" % err
+            print error_message
+            sys.exit(-1)
 
-    return yamlData
+        return yamlData
 
     def scan_all_modules(self, agent_id):
         #fimPolicyName = "CoreSystemFilesUbuntu_v2.1-FIM.json"
@@ -81,18 +81,18 @@ def getYamlData(fqpDataFile, fileKey):
             try:
                 results = scan_module.last_scan_results(agent_id, scan_type)
                 #print "This is dir listing"
-                #if os.path.isfile('/app/.cloudpassage.yml') is False:
-                #    os.listdir("./")
-                #    with open("/app/.cloudpassage.yml", 'a') as yDataFile:
-                #        fileKey = "FIM_Environment_Variables:"
-                #        yDataFile.write(fileKey)
-                #        dataString = "  CONTAINER_SERVER_ID : %s" % results["id"]
-                #        yDataFile.write(dataString)
-                #        yDataFile.close()
-                #else:
-                #    fimData = getYamlData('/app/.cloudpassage.yml', fileKey)
-                #    print "This is fim data"
-                #    print fimData
+                if os.path.isfile('/app/.cloudpassage.yml') is False:
+                 #   os.listdir("./")
+                    with open("/app/.cloudpassage.yml", 'a') as yDataFile:
+                        fileKey = "FIM_Environment_Variables:"
+                        yDataFile.write(fileKey)
+                        dataString = "  CONTAINER_SERVER_ID : %s" % results["id"]
+                        yDataFile.write(dataString)
+                        yDataFile.close()
+                else:
+                    fimData = self.getYamlData('/app/.cloudpassage.yml', fileKey)
+                    print "This is fim data"
+                    print fimData
             except cloudpassage.CloudPassageValidation as e:
                 message = "Error encountered: %s" % str(e)
                 result = {"result": message}
