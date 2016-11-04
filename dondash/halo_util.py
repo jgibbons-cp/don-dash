@@ -22,7 +22,7 @@ class SecurityReporter(object):
             containerFIM_PolicyID = os.environ["CONTAINER_FIM_POLICY_ID"]
 
         cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
-        cpFIM_BaselineID = cpFIM_BaselineObject.create(containerFIM_PolicyID, agent_id)["id"]
+        cpFIM_BaselineID = cpFIM_BaselineObject.create(containerFIM_PolicyID, agent_id)[]["id"]
         print "This is baseline ID %s" % cpFIM_BaselineID
 
         scan_types = ["csm"]
