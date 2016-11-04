@@ -25,8 +25,8 @@ class SecurityReporter(object):
 
         cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
         cpFIM_BaselineID = cpFIM_BaselineObject.create(containerFIM_PolicyID, agent_id)
-        time.sleep(30)
-        print "This is baseline ID %s" % cpFIM_BaselineID
+        SLEEP_TIME=30
+        time.sleep(SLEEP_TIME)
 
         scan_types = ["csm"]
         command_ids = []
