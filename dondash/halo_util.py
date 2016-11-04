@@ -19,10 +19,10 @@ class SecurityReporter(object):
         if os.environ.get("CONTAINER_FIM_POLICY_ID", -1) == -1:
             print "Critical: Failed to create FIM baseline, container FIM policy ID not set..."
         else:
-            print os.environ["CONTAINER_FIM_POLICY_ID"]
+            containerFIM_PolicyID = os.environ["CONTAINER_FIM_POLICY_ID"]
 
         cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
-        cpFIM_BaselineID = cpFIM_BaselineObject.create(CONTAINER_FIM_POLICY_ID, agent_id)["id"]
+        cpFIM_BaselineID = cpFIM_BaselineObject.create(containerFIM_PolicyID, agent_id)["id"]
         print "This is baseline ID %s" % cpFIM_BaselineID
 
         scan_types = ["csm"]
