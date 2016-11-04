@@ -12,36 +12,7 @@ class SecurityReporter(object):
                                                      self.halo_creds.secret_key)
         return
 
-    def getHaloPolicyBody(self, fqpOfDataFile):
-        jsonData = None
-
-        try:
-            with open(fqpOfDataFile) as jDataFile:
-                jsonData = json.load(jDataFile)
-        except IOError as err:
-            error_message = "Unable to load user server ID data from file: %s" % err
-            print error_message
-            sys.exit(-1)
-
-        return jsonData
-
-    def getYamlData(self, fqpDataFile, fileKey):
-        yamlData = None
-
-        try:
-            with open(dataFile) as yDataFile:
-                yamlData = yaml.load(yDataFile)[fileKey]
-        except IOError as err:
-            error_message = "Unable to load user server ID data from file: %s" % err
-            print error_message
-            sys.exit(-1)
-
-        return yamlData
-
     def scan_all_modules(self, agent_id):
-        #fimPolicyName = "CoreSystemFilesUbuntu_v2.1-FIM.json"
-        #fimPolicyLocation = "/tmp"
-        #fqpToPolicyFile = "%s/%s" % (fimPolicyLocation, fimPolicyName)
         #scan_types = ["csm", "svm", "fim"]
         #scan_types = ["csm", "svm"]
         scan_types = ["csm"]
@@ -49,11 +20,10 @@ class SecurityReporter(object):
         unfinished_statuses = ['queued', 'pending']
         server_module = cloudpassage.Server(self.halo_session)
 
-        #cpFIM_Object = cloudpassage.FimPolicy(self.halo_session)
-        #cpFIM_PolicyBody = self.getHaloPolicyBody(fqpToPolicyFile)
-        #print "This is policy body %s" % cpFIM_PolicyBody
-        #cpFIM_PolicyID = cpFIM_Object.create(cpFIM_PolicyBody)
-        #print "This is FIM policy ID %s" % cpFIM_PolicyID
+        if os.environ.get("CONTAINER_FIM_POLICY_ID", -1) == -1:
+            print "Failed to create FIM baseline, container FIM policy ID not set..."
+        else:
+            print os.environ["CONTAINER_FIM_POLICY_ID"]
         #cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
         #cpFIM_BaselineID = cpFIM_BaselineObject.create(cpFIM_PolicyID, agent_id)
         #print "this is baseline id %s" % cpFIM_BaselineID
@@ -76,31 +46,9 @@ class SecurityReporter(object):
                 if status not in unfinished_statuses:
                     command_ids.remove(command_id)
         # Get results
-        #print "Getting scan results"
         for scan_type in scan_types:
             try:
                 results = scan_module.last_scan_results(agent_id, scan_type)
-
-                if os.environ.get("jenks", "Not Set") is "Not Set":
-                    os.environ["jenks"] = "gibbons"
-                    print "not set"
-                else:
-                    print os.environ["jenks"]
-                #print "This is dir listing"
-                #if os.path.isfile('/app/.cloudpassage.yml') is False:
-                #    print "this is dir listing"
-                #    os.listdir("./")
-                #    with open("/app/.cloudpassage.yml", 'a') as yDataFile:
-                #        fileKey = "FIM_Environment_Variables:"
-                #        yDataFile.write(fileKey)
-                #        dataString = "  CONTAINER_SERVER_ID : %s" % results["id"]
-                #        yDataFile.write(dataString)
-                #        yDataFile.close()
-                #
-                #else:
-                #    fimData = self.getYamlData('/app/.cloudpassage.yml', fileKey)
-                #    print "This is fim data"
-                #    print fimData
             except cloudpassage.CloudPassageValidation as e:
                 message = "Error encountered: %s" % str(e)
                 result = {"result": message}
@@ -112,7 +60,3 @@ class SecurityReporter(object):
     def print_pretty_scans(self, raw_scan_results):
         pp = pprint.PrettyPrinter()
         pp.pprint(raw_scan_results)
-        ##print raw_scan_results
-        #with open("testFile", 'w') as fout:
-        #    pp = pprint.PrettyPrinter(stream=fout)
-        #    pp.pprint(raw_scan_results)
