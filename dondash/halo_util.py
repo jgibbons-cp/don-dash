@@ -13,8 +13,8 @@ class SecurityReporter(object):
         return
 
     def scan_all_modules(self, agent_id):
-        #scan_types = ["csm", "svm"]
-        #scan_types = ["csm", "svm"]
+        # scan_types = ["csm", "svm"]
+        # scan_types = ["csm", "svm"]
 
         if os.environ.get("CONTAINER_FIM_POLICY_ID", -1) == -1:
             print "Critical: Failed to create FIM baseline, container FIM policy ID not set..."
