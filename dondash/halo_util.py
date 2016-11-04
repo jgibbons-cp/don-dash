@@ -21,7 +21,7 @@ class SecurityReporter(object):
         cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
         cpFIM_BaselineID = cpFIM_BaselineObject.create(containerFIM_PolicyID, agent_id)
 
-        SLEEP_TIME = 30
+        SLEEP_TIME = 60
         time.sleep(SLEEP_TIME)
 
         return
