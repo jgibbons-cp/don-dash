@@ -12,16 +12,11 @@ class SecurityReporter(object):
                                                      self.halo_creds.secret_key)
         return
 
-    def scan_all_modules(self, agent_id):
-        # scan_types = ["csm", "svm"]
-        # scan_types = ["csm", "svm"]
-
+    def create_fim_baseline(self, agent_id):
         if os.environ.get("CONTAINER_FIM_POLICY_ID", -1) == -1:
             print "Critical: Failed to create FIM baseline, container FIM policy ID not set..."
         else:
             containerFIM_PolicyID = os.environ["CONTAINER_FIM_POLICY_ID"]
-
-        print "This is server ID %s" % agent_id
 
         cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
         cpFIM_BaselineID = cpFIM_BaselineObject.create(containerFIM_PolicyID, agent_id)
@@ -29,7 +24,24 @@ class SecurityReporter(object):
         SLEEP_TIME = 30
         time.sleep(SLEEP_TIME)
 
-        scan_types = ["csm", "svm"]
+        return
+
+    def scan_all_modules(self, agent_id, scan_types):
+
+        # if os.environ.get("CONTAINER_FIM_POLICY_ID", -1) == -1:
+        #     print "Critical: Failed to create FIM baseline, container FIM policy ID not set..."
+        # else:
+        #    containerFIM_PolicyID = os.environ["CONTAINER_FIM_POLICY_ID"]
+
+        # print "This is server ID %s" % agent_id
+
+        #cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
+        #cpFIM_BaselineID = cpFIM_BaselineObject.create(containerFIM_PolicyID, agent_id)
+
+        #SLEEP_TIME = 30
+        #time.sleep(SLEEP_TIME)
+
+        #scan_types = ["csm", "svm"]
         command_ids = []
         unfinished_statuses = ['queued', 'pending']
         server_module = cloudpassage.Server(self.halo_session)
