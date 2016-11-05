@@ -25,7 +25,7 @@ def fimScan(halo_session):
 @app.route('/')
 def home_page():
     #render_template('mainpage.html', results=fimScan(halo_session))
-    render_template('mainpage.html', results=fimScan(halo_session))
+    render_template('mainpage.html')
     return
 
 @app.route('/servers')
