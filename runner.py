@@ -1,4 +1,5 @@
 import os
+from dondash
 import cloudpassage
 from flask import Flask
 from flask import render_template
@@ -17,10 +18,14 @@ def get_servers(halo_session):
 def fimScan(halo_session):
     agent_id = os.getenv("AGENT_ID")
     scan_type = "fim"
-    scan_object = cloudpassage.Scan(halo_session)
-    scan_id = scan_object.initiate_scan(agent_id, scan_type)
-    results = last_scan_results(agent_id, scan_type)
-    return results
+    #scan_object = cloudpassage.Scan(halo_session)
+    #scan_id = scan_object.initiate_scan(agent_id, scan_type)
+    #results = scan_object.last_scan_results(agent_id, scan_type)
+    #return results
+    reporter = dondash.SecurityReporter()
+    reporter.scan_all_modules(agent_id, scan_type)
+
+    return
 
 @app.route('/')
 def home_page():
@@ -34,4 +39,4 @@ def server_list():
 
 @app.route('/fim')
 def fim():
-    render_template('mainpage.html', results=fimScan(halo_session))
+    render_template('mainpage.html', fimScan(halo_session))
