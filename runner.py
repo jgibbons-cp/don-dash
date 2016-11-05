@@ -16,7 +16,8 @@ def get_servers(halo_session):
 
 @app.route('/')
 def home_page():
-    return render_template('mainpage.html')
+    render_template('mainpage.html')
+    return
 
 
 @app.route('/servers')
