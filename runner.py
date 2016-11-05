@@ -11,13 +11,13 @@ halo_session = cloudpassage.HaloSession(halo_creds.key_id, halo_creds.secret_key
 
 def fimScan(halo_session):
     agent_id = os.getenv("AGENT_ID")
-    scan_types = scan_types = ["fim"]
+    scan_types = ["fim"]
     #scan_object = cloudpassage.Scan(halo_session)
     #scan_id = scan_object.initiate_scan(agent_id, scan_type)
     #results = scan_object.last_scan_results(agent_id, scan_type)
     #return results
     reporter = dondash.SecurityReporter()
-    reporter.scan_all_modules(agent_id, scan_type)
+    reporter.scan_all_modules(agent_id, scan_types)
 
     return
 
