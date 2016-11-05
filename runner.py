@@ -31,3 +31,7 @@ def home_page():
 @app.route('/servers')
 def server_list():
     return render_template('servers.html', servers=get_servers(halo_session))
+
+@app.route('/fim')
+def fim():
+    render_template('mainpage.html', results=fimScan(halo_session))
