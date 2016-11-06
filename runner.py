@@ -12,10 +12,6 @@ halo_session = cloudpassage.HaloSession(halo_creds.key_id, halo_creds.secret_key
 def fimScan(halo_session):
     agent_id = os.getenv("AGENT_ID")
     scan_types = ["fim"]
-    #scan_object = cloudpassage.Scan(halo_session)
-    #scan_id = scan_object.initiate_scan(agent_id, scan_type)
-    #results = scan_object.last_scan_results(agent_id, scan_type)
-    #return results
     reporter = dondash.SecurityReporter()
     reporter.scan_all_modules(agent_id, scan_types)
 
@@ -30,14 +26,8 @@ def get_servers(halo_session):
 
 @app.route('/')
 def home_page():
-    #render_template('mainpage.html', results=fimScan(halo_session))
     return render_template('mainpage.html')
-    #return
 
 @app.route('/servers')
 def server_list():
     return render_template('servers.html', servers=get_servers(halo_session))
-
-#@app.route('/fim')
-#def fim():
-#    render_template('mainpage.html', fimScan(halo_session))
