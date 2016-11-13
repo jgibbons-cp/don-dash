@@ -21,8 +21,24 @@ class SecurityReporter(object):
         cpFIM_BaselineObject = cloudpassage.FimBaseline(self.halo_session)
         cpFIM_BaselineID = cpFIM_BaselineObject.create(containerFIM_PolicyID, agent_id)
 
-        SLEEP_TIME = 180 
-        time.sleep(SLEEP_TIME)
+        baselineStatus = ""
+        desiredStatus = "Active"
+        INCREMENTOR = 1
+
+        while baselineStatus != desiredStatus:
+            counter = 0
+            baselineStatus = "Active"
+            results = fbo.list_all("5127a642a9e911e6840a713e2be517f2")
+            print "Checking if baseline is active...\n"
+            for index in results:
+                baselineStatus = results[counter]["status"]
+                if baselineStatus != desiredStatus:
+                    baselineStatus = results[counter]["status"]
+                    print "Baseline is %s... will check again shortly...\n" % baselineStatus
+                    time.sleep(30)
+                    break
+                counter = counter + INCREMENTOR
+        print "Baseline is active...\n"
 
         return
 
