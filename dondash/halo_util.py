@@ -28,7 +28,7 @@ class SecurityReporter(object):
         while baselineStatus != desiredStatus:
             counter = 0
             baselineStatus = "Active"
-            results = fbo.list_all("5127a642a9e911e6840a713e2be517f2")
+            results = cpFIM_BaselineObject.list_all(cpFIM_BaselineID)
             print "Checking if baseline is active...\n"
             for index in results:
                 baselineStatus = results[counter]["status"]
