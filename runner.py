@@ -9,15 +9,15 @@ app = Flask(__name__)
 halo_creds = cloudpassage.ApiKeyManager()
 halo_session = cloudpassage.HaloSession(halo_creds.key_id, halo_creds.secret_key)
 
-def fimScan(halo_session):
-    agent_id = os.getenv("AGENT_ID")
-    scan_types = ["fim"]
-    reporter = dondash.SecurityReporter()
-    reporter.scan_all_modules(agent_id, scan_types)
+# def fimScan(halo_session):
+#    agent_id = os.getenv("AGENT_ID")
+#    scan_types = ["fim"]
+#    reporter = dondash.SecurityReporter()
+#    reporter.scan_all_modules(agent_id, scan_types)
 
-    return
+#    return
 
-fimScan(halo_session)
+# fimScan(halo_session)
 
 def get_servers(halo_session):
     servers_object = cloudpassage.Server(halo_session)
