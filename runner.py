@@ -28,6 +28,6 @@ def get_servers(halo_session):
 def home_page():
     return render_template('mainpage.html')
 
-@app.route('/servers')
+# @app.route('/servers')
 def server_list():
     return render_template('servers.html', servers=get_servers(halo_session))
